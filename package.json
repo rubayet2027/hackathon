@@ -21,7 +21,11 @@
     "docker:down:volumes": "docker compose -f docker/compose.dev.yml down -v",
     "docker:logs": "docker compose -f docker/compose.dev.yml logs -f",
     "docker:logs:api": "docker compose -f docker/compose.dev.yml logs -f delineate-app",
-    "docker:logs:worker": "docker compose -f docker/compose.dev.yml logs -f delineate-worker"
+    "docker:logs:worker": "docker compose -f docker/compose.dev.yml logs -f delineate-worker",
+    "docker:logs:frontend": "docker compose -f docker/compose.dev.yml logs -f delineate-frontend",
+    "frontend:install": "cd frontend && npm install",
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:build": "cd frontend && npm run build"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.948.0",

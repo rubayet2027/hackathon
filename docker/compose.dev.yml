@@ -160,6 +160,33 @@ services:
     networks:
       - delineate-network
 
+  # ===========================================
+  # Frontend - React Dashboard with Observability
+  # ===========================================
+  delineate-frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile.dev
+    container_name: delineate-frontend
+    ports:
+      - "5173:5173" # Vite dev server
+    volumes:
+      - ../frontend/src:/app/src
+      - ../frontend/index.html:/app/index.html
+    environment:
+      - VITE_API_URL=http://localhost:3000
+      - VITE_JAEGER_URL=http://localhost:16686
+      - VITE_OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+      # Add your Sentry DSN here:
+      # - VITE_SENTRY_DSN=https://your-key@sentry.io/project-id
+    depends_on:
+      delineate-app:
+        condition: service_healthy
+      delineate-jaeger:
+        condition: service_started
+    networks:
+      - delineate-network
+
 # ===========================================
 # Volumes - Persistent Data Storage
 # ===========================================
